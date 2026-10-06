@@ -1,4 +1,4 @@
-﻿//*****************************************************************************************************************************************************************************
+//*****************************************************************************************************************************************************************************
 //*Практическая работа №10                                                                                                                                                    *
 //*Сделал Егоров Н.Н, группа 2-ИСП                                                                                                                                            *
 //*Задание: поменять значения столбцов, размерность нечётная: поменять первый и средний столбец, размерность чётная: средние два столбца поменять с первым и последним.       *
@@ -27,7 +27,7 @@ namespace Практическая_работа__10
             {
                 try
                 {
-                    int NumberMatrix = 0;
+                    int NumberMatrix;
                     Console.Write("Введите размерность квадратной матрицы (только 3 или 4): ");
                     int SizeMatrix = Int32.Parse(Console.ReadLine());
                     if (SizeMatrix > 4 || SizeMatrix < 3)
@@ -38,15 +38,15 @@ namespace Практическая_работа__10
                         continue;
                     }
 
-                    int [,] matrix = new int[SizeMatrix, SizeMatrix];
+                    int[,] matrix = new int[SizeMatrix, SizeMatrix];
 
                     Console.WriteLine("Изначальная матрица:");
                     for (int i = 0; i < SizeMatrix; i++)
                     {
                         for (int j = 0; j < SizeMatrix; j++)
                         {
-                            matrix[i,j] = rnd.Next(1, 31);
-                            Console.Write(matrix[i,j] + "\t");
+                            matrix[i, j] = rnd.Next(1, 31);
+                            Console.Write(matrix[i, j] + "\t");
                         }
                         Console.WriteLine();
                     }
@@ -55,46 +55,49 @@ namespace Практическая_работа__10
                     {
                         for (int i = 0; i < SizeMatrix; i++)
                         {
-                            for (int j = 0; j < SizeMatrix; i++)
-                            {
-                                if (i == 1)
-                                {
-                                    NumberMatrix = matrix[i, j];
-                                    matrix[i, j] = matrix[i--, j];
-                                    matrix[i--, j] = NumberMatrix;
-                                }
-                            }
+                            NumberMatrix = matrix[i, 1];
+                            matrix[i, 1] = matrix[i, 0];
+                            matrix[i, 0] = NumberMatrix;
                         }
                     }
                     else
                     {
                         for (int i = 0; i < SizeMatrix; i++)
                         {
-                            for (int j = 0; j < SizeMatrix; i++)
-                            {
-                                if (i == 1)
-                                {
-                                    NumberMatrix = matrix[i, j];
-                                    matrix[i, j] = matrix[i--, j];
-                                    matrix[i--, j] = NumberMatrix;
-                                }
-                                if (i == 2)
-                                {
-                                    NumberMatrix = matrix[i, j];
-                                    matrix[i, j] = matrix[i++, j];
-                                    matrix[i++,j] = NumberMatrix;
-                                }
-                            }
+                            NumberMatrix = matrix[i, 1];
+                            matrix[i, 1] = matrix[i, 0];
+                            matrix[i, 0] = NumberMatrix;
+
+                            NumberMatrix = matrix[i, 2];
+                            matrix[i, 2] = matrix[i, 3];
+                            matrix[i, 3] = NumberMatrix;
                         }
                     }
 
                     Console.WriteLine("Результирующая матрица:");
                     for (int i = 0; i < SizeMatrix; i++)
                     {
-                        for (int j = 0; j < SizeMatrix; i++)
+                        for (int j = 0; j < SizeMatrix; j++)
                         {
+                            if (SizeMatrix == 3 && (j == 0 || j == 1))
+                            {
+                                Console.ForegroundColor = ConsoleColor.DarkGreen;
+                            }
+                            else if (SizeMatrix == 4 && (j == 0 || j == 1))
+                            {
+                                Console.ForegroundColor = ConsoleColor.DarkRed;
+                            }
+                            else if (SizeMatrix == 4 && (j == 2 || j == 3))
+                            {
+                                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                            }
+                            else
+                            {
+                                Console.ForegroundColor = ConsoleColor.White;
+                            }
                             Console.Write(matrix[i, j] + "\t");
                         }
+                        Console.ForegroundColor = ConsoleColor.White;
                         Console.WriteLine();
                     }
                 }
@@ -145,7 +148,7 @@ namespace Практическая_работа__10
                             if (answer == 0)//если ответ пользователя равен 0
                             {
                                 ExitProgram = true;//флаг выхода из программы становится истинным
-                                Console.WriteLine("Завершение программы.");//выводится сообщение: Завершение программы.
+                                Console.WriteLine("Завершение программы. Нажмите для продолжения...");//выводится сообщение: Завершение программы.
                             }
                             break;
                         }
@@ -176,6 +179,7 @@ namespace Практическая_работа__10
                 if (ExitProgram == true)//если выход из программы является истинным
                     break;//завершается внешний цикл
             }
+            Console.ReadKey();//задержка экрана
         }
     }
 }
