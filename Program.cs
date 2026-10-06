@@ -22,7 +22,7 @@ namespace Практическая_работа__10
             Console.Title = "Практическая работа №10";//задаёт значение в заголовок консоли
 
             bool ExitProgram = false;
-            Random rnd = new Random();
+            Random rnd = new Random();//создание генератора чисел
             while (true)
             {
                 try
@@ -45,32 +45,42 @@ namespace Практическая_работа__10
                     {
                         for (int j = 0; j < SizeMatrix; j++)
                         {
-                            matrix[i, j] = rnd.Next(1, 31);
-                            Console.Write(matrix[i, j] + "\t");
+                            matrix[i, j] = rnd.Next(1, 31);//генерация случайных чисел в диапазоне [1,31)
+                            Console.Write(matrix[i, j] + "\t");//вывод матрицы (по индексу + табуляция)
                         }
-                        Console.WriteLine();
+                        Console.WriteLine();//переход на новую строку
                     }
 
-                    if (SizeMatrix == 3)
+                    int mid = SizeMatrix / 2;//нахождение середины матрицы
+                    int FirstCol = 0;//первая колонка
+                    if (SizeMatrix % 2 != 0)//проверка на нечётность матрицы
                     {
                         for (int i = 0; i < SizeMatrix; i++)
                         {
-                            NumberMatrix = matrix[i, 1];
-                            matrix[i, 1] = matrix[i, 0];
-                            matrix[i, 0] = NumberMatrix;
+                            //Меняем значения по принципу: меняем значения 1-ого (0) и среднего (mid = 1) столбцов.
+                            NumberMatrix = matrix[i, mid];
+                            matrix[i, mid] = matrix[i, FirstCol];
+                            matrix[i, FirstCol] = NumberMatrix;
                         }
                     }
                     else
                     {
+
                         for (int i = 0; i < SizeMatrix; i++)
                         {
-                            NumberMatrix = matrix[i, 1];
-                            matrix[i, 1] = matrix[i, 0];
+                            int LeftMid = mid - 1;//левая середина для 4 размерности (1)
+                            int RightMid = mid;//правая середина для 4 размерности (2)
+                            int LastCol = SizeMatrix - 1;//последняя колонка
+
+                            //Меняем значения по принципу: меняем значения 1-ого (0) и левого среднего (LeftMid = 1) столбцов.
+                            NumberMatrix = matrix[i, LeftMid];
+                            matrix[i, LeftMid] = matrix[i, 0];
                             matrix[i, 0] = NumberMatrix;
 
-                            NumberMatrix = matrix[i, 2];
-                            matrix[i, 2] = matrix[i, 3];
-                            matrix[i, 3] = NumberMatrix;
+                            //Меняем значения по принципу: меняем значения последнего (LastCol = 3) и правого среднего (RightMid = 2) столбцов.
+                            NumberMatrix = matrix[i, RightMid];
+                            matrix[i, RightMid] = matrix[i, LastCol];
+                            matrix[i, LastCol] = NumberMatrix;
                         }
                     }
 
