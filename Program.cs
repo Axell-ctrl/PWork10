@@ -1,8 +1,8 @@
-//*****************************************************************************************************************************************************************************
-//*Практическая работа №10                                                                                                                                                    *
-//*Сделал Егоров Н.Н, группа 2-ИСП                                                                                                                                            *
-//*Задание: поменять значения столбцов, размерность нечётная: поменять первый и средний столбец, размерность чётная: средние два столбца поменять с первым и последним.       *
-//*****************************************************************************************************************************************************************************
+//***************************************************************************************************************************************************************************************
+//*Практическая работа №10                                                                                                                                                              *
+//*Сделал Егоров Н.Н, группа 2-ИСП                                                                                                                                                      *
+//*Задание: поменять значения столбцов, размерность нечётная: поменять первый и средний столбец, размерность чётная: средние два столбца поменять с первым и последним соответственно.  *
+//***************************************************************************************************************************************************************************************
 
 using System;
 using System.Collections.Generic;
@@ -20,9 +20,11 @@ namespace Практическая_работа__10
             Console.ForegroundColor = ConsoleColor.White;
             Console.Clear();
             Console.Title = "Практическая работа №10";//задаёт значение в заголовок консоли
+            Console.WriteLine("Здравствуйте!");
 
-            bool ExitProgram = false;
+            bool ExitProgram = false;//флаг для выхода из цикла повтора программы
             Random rnd = new Random();//создание генератора чисел
+
             while (true)
             {
                 try
@@ -39,45 +41,45 @@ namespace Практическая_работа__10
                     }
 
                     int[,] matrix = new int[SizeMatrix, SizeMatrix];
-
                     Console.WriteLine("Изначальная матрица:");
                     for (int i = 0; i < SizeMatrix; i++)
                     {
                         for (int j = 0; j < SizeMatrix; j++)
                         {
                             matrix[i, j] = rnd.Next(1, 31);//генерация случайных чисел в диапазоне [1,31)
-                            Console.Write(matrix[i, j] + "\t");//вывод матрицы (по индексу + табуляция)
+                            Console.Write(matrix[i, j] + "\t");//вывод матрицы (по индексам + табуляция)
                         }
                         Console.WriteLine();//переход на новую строку
                     }
 
                     int mid = SizeMatrix / 2;//нахождение середины матрицы
                     int FirstCol = 0;//первая колонка
+
                     if (SizeMatrix % 2 != 0)//проверка на нечётность матрицы
                     {
                         for (int i = 0; i < SizeMatrix; i++)
                         {
-                            //Меняем значения по принципу: меняем значения 1-ого (0) и среднего (mid = 1) столбцов.
+                            //Меняем значения по принципу: запоминаем значение середины матрицы, меняем значения 1-ого (FirstCol = 0) и среднего (mid = 1) столбцов.
                             NumberMatrix = matrix[i, mid];
                             matrix[i, mid] = matrix[i, FirstCol];
                             matrix[i, FirstCol] = NumberMatrix;
                         }
                     }
-                    else
+                    else//иначе (матрица чётная)
                     {
 
                         for (int i = 0; i < SizeMatrix; i++)
                         {
-                            int LeftMid = mid - 1;//левая середина для 4 размерности (1)
-                            int RightMid = mid;//правая середина для 4 размерности (2)
+                            int LeftMid = mid - 1;//левая середина для 4 размерности (1 индекс)
+                            int RightMid = mid;//правая середина для 4 размерности (2 индекс)
                             int LastCol = SizeMatrix - 1;//последняя колонка
 
-                            //Меняем значения по принципу: меняем значения 1-ого (0) и левого среднего (LeftMid = 1) столбцов.
+                            //Меняем значения по принципу: запоминаем значение левой середины матрицы, меняем значения 1-ого (FirstCol = 0) и левого среднего (LeftMid = 1) столбцов.
                             NumberMatrix = matrix[i, LeftMid];
-                            matrix[i, LeftMid] = matrix[i, 0];
-                            matrix[i, 0] = NumberMatrix;
+                            matrix[i, LeftMid] = matrix[i, FirstCol];
+                            matrix[i, FirstCol] = NumberMatrix;
 
-                            //Меняем значения по принципу: меняем значения последнего (LastCol = 3) и правого среднего (RightMid = 2) столбцов.
+                            //Меняем значения по принципу: запоминаем значение правой середины матрицы, меняем значения последнего (LastCol = 3) и правого среднего (RightMid = 2) столбцов.
                             NumberMatrix = matrix[i, RightMid];
                             matrix[i, RightMid] = matrix[i, LastCol];
                             matrix[i, LastCol] = NumberMatrix;
@@ -89,26 +91,26 @@ namespace Практическая_работа__10
                     {
                         for (int j = 0; j < SizeMatrix; j++)
                         {
-                            if (SizeMatrix == 3 && (j == 0 || j == 1))
+                            if (SizeMatrix == 3 && (j == 0 || j == 1))//проверка на размер матрицы и столбцы
                             {
-                                Console.ForegroundColor = ConsoleColor.DarkGreen;
+                                Console.ForegroundColor = ConsoleColor.Green;//окрашиваем в зелёный
                             }
-                            else if (SizeMatrix == 4 && (j == 0 || j == 1))
+                            else if (SizeMatrix == 4 && (j == 0 || j == 1))//проверка на первые заменённые столбцы матрицы 4 размерности
                             {
-                                Console.ForegroundColor = ConsoleColor.DarkRed;
+                                Console.ForegroundColor = ConsoleColor.Red;//окрашиваем в красный
                             }
-                            else if (SizeMatrix == 4 && (j == 2 || j == 3))
+                            else if (SizeMatrix == 4 && (j == 2 || j == 3))//проверка на последние заменённые столбцы матрицы 4 размерности
                             {
-                                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                                Console.ForegroundColor = ConsoleColor.DarkYellow;//окрашиваем в тёмно-жёлтый
                             }
                             else
                             {
-                                Console.ForegroundColor = ConsoleColor.White;
+                                Console.ForegroundColor = ConsoleColor.White;//остальное оставляем в белом цвете
                             }
-                            Console.Write(matrix[i, j] + "\t");
+                            Console.Write(matrix[i, j] + "\t");//вывод результирующей матрицы (по индексам + табуляция)
                         }
-                        Console.ForegroundColor = ConsoleColor.White;
-                        Console.WriteLine();
+                        Console.ForegroundColor = ConsoleColor.White;//возвращаем цвет обратно
+                        Console.WriteLine();//переход на новую строку
                     }
                 }
                 catch (IndexOutOfRangeException iorex)//обработчик исключения IndexOutOfRangeException (Индекс находился вне границ массива)
