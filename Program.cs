@@ -22,17 +22,17 @@ namespace Практическая_работа__10
             Console.Title = "Практическая работа №10";//задаёт значение в заголовок консоли
             Console.WriteLine("Здравствуйте!");
 
-            bool ExitProgram = false;//флаг для выхода из цикла повтора программы
+            bool exitProgram = false;//флаг для выхода из цикла повтора программы
             Random rnd = new Random();//создание генератора чисел
 
             while (true)
             {
                 try
                 {
-                    int NumberMatrix;
+                    int numberMatrix;
                     Console.Write("Введите размерность квадратной матрицы (только 3 или 4): ");
-                    int SizeMatrix = Int32.Parse(Console.ReadLine());
-                    if (SizeMatrix > 4 || SizeMatrix < 3)
+                    int sizeMatrix = Int32.Parse(Console.ReadLine());
+                    if (sizeMatrix > 4 || sizeMatrix < 3)
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("Вы ввели некорректное число. Размерность должна быть равна 3 или 4.");
@@ -40,11 +40,11 @@ namespace Практическая_работа__10
                         continue;
                     }
 
-                    int[,] matrix = new int[SizeMatrix, SizeMatrix];
+                    int[,] matrix = new int[sizeMatrix, sizeMatrix];
                     Console.WriteLine("Изначальная матрица:");
-                    for (int i = 0; i < SizeMatrix; i++)
+                    for (int i = 0; i < sizeMatrix; i++)
                     {
-                        for (int j = 0; j < SizeMatrix; j++)
+                        for (int j = 0; j < sizeMatrix; j++)
                         {
                             matrix[i, j] = rnd.Next(1, 31);//генерация случайных чисел в диапазоне [1,31)
                             Console.Write(matrix[i, j] + "\t");//вывод матрицы (по индексам + табуляция)
@@ -52,54 +52,54 @@ namespace Практическая_работа__10
                         Console.WriteLine();//переход на новую строку
                     }
 
-                    int mid = SizeMatrix / 2;//нахождение середины матрицы
-                    int FirstCol = 0;//первая колонка
+                    int mid = sizeMatrix / 2;//нахождение середины матрицы
+                    int firstCol = 0;//первая колонка
 
-                    if (SizeMatrix % 2 != 0)//проверка на нечётность матрицы
+                    if (sizeMatrix % 2 != 0)//проверка на нечётность матрицы
                     {
-                        for (int i = 0; i < SizeMatrix; i++)
+                        for (int i = 0; i < sizeMatrix; i++)
                         {
-                            //Меняем значения по принципу: запоминаем значение середины матрицы, меняем значения 1-ого (FirstCol = 0) и среднего (mid = 1) столбцов.
-                            NumberMatrix = matrix[i, mid];
-                            matrix[i, mid] = matrix[i, FirstCol];
-                            matrix[i, FirstCol] = NumberMatrix;
+                            //Меняем значения по принципу: запоминаем значение середины матрицы, меняем значения 1-ого (firstCol = 0) и среднего (mid = 1) столбцов.
+                            numberMatrix = matrix[i, mid];
+                            matrix[i, mid] = matrix[i, firstCol];
+                            matrix[i, firstCol] = numberMatrix;
                         }
                     }
                     else//иначе (матрица чётная)
                     {
 
-                        for (int i = 0; i < SizeMatrix; i++)
+                        for (int i = 0; i < sizeMatrix; i++)
                         {
-                            int LeftMid = mid - 1;//левая середина для 4 размерности (1 индекс)
-                            int RightMid = mid;//правая середина для 4 размерности (2 индекс)
-                            int LastCol = SizeMatrix - 1;//последняя колонка
+                            int leftMid = mid - 1;//левая середина для 4 размерности (1 индекс)
+                            int rightMid = mid;//правая середина для 4 размерности (2 индекс)
+                            int lastCol = sizeMatrix - 1;//последняя колонка
 
-                            //Меняем значения по принципу: запоминаем значение левой середины матрицы, меняем значения 1-ого (FirstCol = 0) и левого среднего (LeftMid = 1) столбцов.
-                            NumberMatrix = matrix[i, LeftMid];
-                            matrix[i, LeftMid] = matrix[i, FirstCol];
-                            matrix[i, FirstCol] = NumberMatrix;
+                            //Меняем значения по принципу: запоминаем значение левой середины матрицы, меняем значения 1-ого (firstCol = 0) и левого среднего (leftMid = 1) столбцов.
+                            numberMatrix = matrix[i, leftMid];
+                            matrix[i, leftMid] = matrix[i, firstCol];
+                            matrix[i, firstCol] = numberMatrix;
 
-                            //Меняем значения по принципу: запоминаем значение правой середины матрицы, меняем значения последнего (LastCol = 3) и правого среднего (RightMid = 2) столбцов.
-                            NumberMatrix = matrix[i, RightMid];
-                            matrix[i, RightMid] = matrix[i, LastCol];
-                            matrix[i, LastCol] = NumberMatrix;
+                            //Меняем значения по принципу: запоминаем значение правой середины матрицы, меняем значения последнего (lastCol = 3) и правого среднего (rightMid = 2) столбцов.
+                            numberMatrix = matrix[i, rightMid];
+                            matrix[i, rightMid] = matrix[i, lastCol];
+                            matrix[i, lastCol] = numberMatrix;
                         }
                     }
 
                     Console.WriteLine("Результирующая матрица:");
-                    for (int i = 0; i < SizeMatrix; i++)
+                    for (int i = 0; i < sizeMatrix; i++)
                     {
-                        for (int j = 0; j < SizeMatrix; j++)
+                        for (int j = 0; j < sizeMatrix; j++)
                         {
-                            if (SizeMatrix == 3 && (j == 0 || j == 1))//проверка на размер матрицы и столбцы
+                            if (sizeMatrix == 3 && (j == 0 || j == 1))//проверка на размер матрицы и столбцы
                             {
                                 Console.ForegroundColor = ConsoleColor.Green;//окрашиваем в зелёный
                             }
-                            else if (SizeMatrix == 4 && (j == 0 || j == 1))//проверка на первые заменённые столбцы матрицы 4 размерности
+                            else if (sizeMatrix == 4 && (j == 0 || j == 1))//проверка на первые заменённые столбцы матрицы 4 размерности
                             {
                                 Console.ForegroundColor = ConsoleColor.Red;//окрашиваем в красный
                             }
-                            else if (SizeMatrix == 4 && (j == 2 || j == 3))//проверка на последние заменённые столбцы матрицы 4 размерности
+                            else if (sizeMatrix == 4 && (j == 2 || j == 3))//проверка на последние заменённые столбцы матрицы 4 размерности
                             {
                                 Console.ForegroundColor = ConsoleColor.DarkYellow;//окрашиваем в тёмно-жёлтый
                             }
@@ -113,13 +113,13 @@ namespace Практическая_работа__10
                         Console.WriteLine();//переход на новую строку
                     }
                 }
-                catch (IndexOutOfRangeException iorex)//обработчик исключения IndexOutOfRangeException (Индекс находился вне границ массива)
+                /*catch (IndexOutOfRangeException iorex)//обработчик исключения IndexOutOfRangeException (Индекс находился вне границ массива)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine($"Что-то пошло не так! Ошибка: {iorex.Message} Попробуйте ещё раз.");//Вывод текста с помощью интерполяции: Что-то пошло не так! Ошибка: Индекс находился вне границ массива.
                     Console.ForegroundColor = ConsoleColor.White;
                     continue;
-                }
+                }*/
                 catch (FormatException fex)//обработчик исключения FormatException (входная строка имела неправильный формат)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
@@ -159,7 +159,7 @@ namespace Практическая_работа__10
                         {
                             if (answer == 0)//если ответ пользователя равен 0
                             {
-                                ExitProgram = true;//флаг выхода из программы становится истинным
+                                exitProgram = true;//флаг выхода из программы становится истинным
                                 Console.WriteLine("Завершение программы. Нажмите для продолжения...");//выводится сообщение: Завершение программы.
                             }
                             break;
@@ -188,7 +188,7 @@ namespace Практическая_работа__10
                     }
                 }
 
-                if (ExitProgram == true)//если выход из программы является истинным
+                if (exitProgram == true)//если выход из программы является истинным
                     break;//завершается внешний цикл
             }
             Console.ReadKey();//задержка экрана
